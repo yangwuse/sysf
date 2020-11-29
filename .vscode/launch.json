@@ -5,26 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "clang - 生成和调试活动文件",
-      "type": "cppdbg",
+      "name": "clang debug",
+      "type": "lldb",
       "request": "launch",
       "program": "${fileDirname}/${fileBasenameNoExtension}",
       "args": [],
-      "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
-      "environment": [],
-      "externalConsole": false,
-      "MIMode": "lldb",
-      "preLaunchTask": "C/C++: clang build active file"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "program": "${workspaceFolder}/index.js"
-    }
+      "preLaunchTask": "clang build"
+    }   
   ]
 }
