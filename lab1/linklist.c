@@ -14,9 +14,10 @@ void printLink(Link L)
 {
   if (L == NULL) return;
   Link p = L->next;
+  int cnt = 1;
   while (p != NULL) 
   {
-    printf("%s %s %s\n", p->id, p->name, p->age);
+    printf("%d %s %s %s\n", cnt++, p->id, p->name, p->age);
     p = p->next;
   }
 }
@@ -114,19 +115,20 @@ int main()
   fclose(fin);
   char input[20];
   gets(input);
+  char *tmpStr, flag, *id, *name, *age;
+  int pos; 
   while (strcmp(input, "") != 0)
   {
-    char *tmpStr;
-    char flag;
-    int pos; 
-    char *id, *name, *age;
+    // P3, D3
     tmpStr = strtok(input, ",");
     flag = tmpStr[0];
-    pos = tmpStr[1];
+    pos = tmpStr[1] - '0';
+    // I3,SA10225038,张四,24
     id = strtok(NULL, ",");
     name = strtok(NULL, ",");
-    age = strtok(NULL, ",");
+    age = strtok(NULL, ","); 
 
+    // P3, D3, I3,SA10225038,张四,24
     switch(flag)
     {
       case 'P':
@@ -142,9 +144,6 @@ int main()
     printf("输入命令以继续，否则结束\n");
     gets(input);
   }
-
-  
-
  
   return 0;
 }

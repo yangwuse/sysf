@@ -87,35 +87,35 @@ int main()
   }
 
   fclose(fin);
-
-  char command[10], flag;
-  int pos;
-
-  // command = "P3"
-  flag = 'P'; pos = 3;
-
-  // command = "D3"
-  // flag = 'D'; pos = 3;
-
-  // command = "I3,SA10225038,张四,24"
-  flag = 'I'; pos = 3;
-  char *id = "SA10225038";
-  char *name = "张四";
-  char *age = "24\n";
-
-  switch(flag)
+  char input[20];
+  gets(input);
+  char *tmpStr, flag, *id, *name, *age;
+  int pos; 
+  while (strcmp(input, "") != 0)
   {
-    case 'P':
-      printAtIndex(pos-1);
-      break;
-    case 'D':
-      deletAtIndex(pos-1);
-      break;
-    case 'I':
-      insertAtIndex(pos-1, id, name, age);
-      break;
+    // P3, D3
+    tmpStr = strtok(input, ",");
+    flag = tmpStr[0];
+    pos = tmpStr[1] - '0';
+    // I3,SA10225038,张四,24
+    id = strtok(NULL, ",");
+    name = strtok(NULL, ",");
+    age = strtok(NULL, ","); 
+    switch(flag)
+    {
+      case 'P':
+        printAtIndex(pos);
+        break;
+      case 'D':
+        deletAtIndex(pos);
+        break;
+      case 'I':
+        insertAtIndex(pos,id, name, age);
+        break;
+    }
+    printf("输入命令以继续，否则结束\n");
+    gets(input);
   }
-  // printf("sizeof Node = %dB\n", sizeof(SqList[0]));
   printSqListAddr();
 
   return 0;

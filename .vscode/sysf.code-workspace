@@ -11,7 +11,8 @@
 		"files.associations": {
 			"*.o": "c",
 			"__locale": "c",
-			"cstring": "c"
+			"cstring": "c",
+			"locale": "c"
 		}
 	}
 }
