@@ -92,9 +92,6 @@ int main()
 {
   // 保存一行数据
   char line[100];
-  // int a;
-  // scanf("%d", &a);
-  // printf("%d", a);
   // mac 下相对路径目前不行, 还有乱码问题 ccs (iconv -f GBK23123 -t UTF-8 a > data.txt) 
   FILE *fin = openFile("/Users/yangwu/VSCodeProjects/sysf/lab1/data.txt", "r,ccs=UTF-8");
 
@@ -125,11 +122,9 @@ int main()
   
   r->next = NULL;
   fclose(fin);
-  // command = gets(buffer);
-  // size_t size = 20;
-  // printf("=======\n");
-  // getline(&command, &size, stdin);
-  // gets(command);
+  char *input;
+  getc(input);
+  printf("%s\n", input);
   // printf("%s\n", command);
   // flag = command[0];
   // pos = command[1] - '0';

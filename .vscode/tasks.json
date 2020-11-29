@@ -10,9 +10,10 @@
       "args": [
         "-std=c++17",
         "-stdlib=libc++",
-        "${fileBasenameNoExtension}.cpp",
+        // .c* build c or cpp
+        "${fileDirname}/${fileBasenameNoExtension}.c*",
         "-o",
-        "${fileBasenameNoExtension}",
+        "${fileDirname}/${fileBasenameNoExtension}",
         "--debug"
       ],
       "group": {

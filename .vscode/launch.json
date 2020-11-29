@@ -11,6 +11,7 @@
       "program": "${fileDirname}/${fileBasenameNoExtension}",
       "args": [],
       "cwd": "${workspaceFolder}",
+      // same as task labe
       "preLaunchTask": "clang build"
     }   
   ]
