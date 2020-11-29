@@ -73,28 +73,18 @@ void insertNode(Link L, int pos, char *id, char *name, char *age)
   printLink(L);
 }
 
-
-FILE * openFile(char *path, char *encoding)
-{
-  // 输入文件指针
-  // mac 下相对路径目前不行, 还有乱码问题 ccs (iconv -f GBK23123 -t UTF-8 a > data.txt) 
-  FILE *fin = fopen("/Users/yangwu/VSCodeProjects/sysf/lab1/data.txt", "r,ccs=UTF-8");
-
-  if (fin == NULL) 
-  {
-    fprintf(stderr, "no such file \n");
-    exit(EXIT_FAILURE);
-  }
-  return fin;
-}
-
 int main()
 {
   // 保存一行数据
   char line[100];
   // mac 下相对路径目前不行, 还有乱码问题 ccs (iconv -f GBK23123 -t UTF-8 a > data.txt) 
-  FILE *fin = openFile("/Users/yangwu/VSCodeProjects/sysf/lab1/data.txt", "r,ccs=UTF-8");
-
+  FILE *fin = fopen("/Users/yangwu/VSCodeProjects/sysf/lab1/data.txt", "r,ccs=UTF-8");
+   if (fin == NULL) 
+  {
+    fprintf(stderr, "no such file \n");
+    exit(EXIT_FAILURE);
+  }
+  
   Link  head = (Link)malloc(sizeof(LNode));
   Link r = head;
 
@@ -122,41 +112,39 @@ int main()
   
   r->next = NULL;
   fclose(fin);
-  char *input;
-  getc(input);
-  printf("%s\n", input);
-  // printf("%s\n", command);
-  // flag = command[0];
-  // pos = command[1] - '0';
-  char command[10], flag;
-  int pos;
+  char input[20];
+  gets(input);
+  while (strcmp(input, "") != 0)
+  {
+    char *tmpStr;
+    char flag;
+    int pos; 
+    char *id, *name, *age;
+    tmpStr = strtok(input, ",");
+    flag = tmpStr[0];
+    pos = tmpStr[1];
+    id = strtok(NULL, ",");
+    name = strtok(NULL, ",");
+    age = strtok(NULL, ",");
 
-  // command = "P3"
-  // flag = 'P'; pos = 3;
-
-  // command = "D3"
-  // flag = 'D'; pos = 3;
-
-  // command = "I3,SA10225038,张四,24"
-  flag = 'I'; pos = 3;
-  char *id = "SA10225038";
-  char *name = "张四";
-  char *age = "24\n";
+    switch(flag)
+    {
+      case 'P':
+        printNode(head, pos);
+        break;
+      case 'D':
+        deletNode(head, pos);
+        break;
+      case 'I':
+        insertNode(head, pos, id, name, age);
+        break;
+    }
+    printf("输入命令以继续，否则结束\n");
+    gets(input);
+  }
 
   
 
-  switch(flag)
-  {
-    case 'P':
-      printNode(head, pos);
-      break;
-    case 'D':
-      deletNode(head, pos);
-      break;
-    case 'I':
-      insertNode(head, pos, id, name, age);
-      break;
-  }
-
+ 
   return 0;
 }

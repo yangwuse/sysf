@@ -7,5 +7,11 @@
 			"path": "../../../Desktop/实用算法/SouceCodeForTeaching"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"*.o": "c",
+			"__locale": "c",
+			"cstring": "c"
+		}
+	}
 }
