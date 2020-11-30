@@ -87,8 +87,9 @@ int main()
   }
   
   Link  head = (Link)malloc(sizeof(LNode));
-  Link r = head;
+  Link r = head, node;
 
+ 
   // 逐行读取文件，读一行处理一行
   while (fgets(line, 100, fin) != NULL)
   {
@@ -99,9 +100,10 @@ int main()
     name = strtok(NULL, ",");
     age = strtok(NULL, ",");
     
-    Link node = (Link)malloc(sizeof(LNode));
+    node = (Link)malloc(sizeof(LNode));
     if (node != NULL)
     {
+      // 坑, 直接赋值有 bug (结构体指针成员使用前必须分配内存)
       node->id = strdup(id);
       node->name = strdup(name);
       node->age = strdup(age);

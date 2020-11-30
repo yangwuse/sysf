@@ -3,52 +3,53 @@
 #include <string.h>
 
 typedef struct SqlItem {
-  char id[11]; // 数组最后必须有 '\0'
-  char name[20];
-  char age[20];
+  char* m_id; 
+  char* m_name;
+  char* m_age;
 } Node;
+
 // 定义顺序表
-int len;
+int LEN;
 Node SqList[100];
 
 void printSqListAddr()
 {
-  for (int i = 0; i < len; i++)
+  for (int i = 0; i < LEN; i++)
     printf("i = %d\t addr = %p\n", i, &SqList[i]);
 }
 
 void printSqList()
 {
-  for (int j = 0; j < len; j++) 
+  for (int j = 0; j < LEN; j++) 
   {
-    printf("%s %s %s\n", SqList[j].id,SqList[j].name, SqList[j].age);
+    printf("%d %s %s %s\n", j+1, SqList[j].m_id,SqList[j].m_name, SqList[j].m_age);
   }
 }
 
 void printAtIndex(int index)
 {
-  printf("P3 id = %s\t name = %s\t age = %s\t\n",
-  SqList[index].id, SqList[index].name, SqList[index].age);
+  printf("id = %s\t name = %s\t age = %s\t\n",
+  SqList[index].m_id, SqList[index].m_name, SqList[index].m_age);
 }
 
 void deletAtIndex(int index)
 {
-  printf("delete %s\n", SqList[index].name);
-  for (int i = index; i < len - 1; i++)
+  printf("删除 %s\n", SqList[index].m_name);
+  for (int i = index; i < LEN - 1; i++)
     SqList[i] = SqList[i + 1];
-  len--;
+  LEN--;
   printSqList();
 }
 
 void insertAtIndex(int index, char *id, char *name, char *age)
 {
-  for (int i = len; i > index; i--)
+  for (int i = LEN; i > index; i--)
     SqList[i] = SqList[i - 1];
-  strcpy(SqList[index].id, id);
-  strcpy(SqList[index].name, name);
-  strcpy(SqList[index].age, age);
-  len++;
-  printf("inset %s\n", SqList[index].name);
+  SqList[index].m_id = id;
+  SqList[index].m_name = name;
+  SqList[index].m_age = age;
+  LEN++;
+  printf("插入 %s\n", SqList[index].m_name);
   printSqList();
 }
 
@@ -79,11 +80,11 @@ int main()
     name = strtok(NULL, ",");
     age = strtok(NULL, ",");
 
-    strcpy(SqList[i].id, id);
-    strcpy(SqList[i].name, name);
-    strcpy(SqList[i].age, age);
+    SqList[i].m_id = strdup(id);
+    SqList[i].m_name = strdup(name);
+    SqList[i].m_age = strdup(age);
     ++i;
-    len++;
+    LEN++;
   }
 
   fclose(fin);

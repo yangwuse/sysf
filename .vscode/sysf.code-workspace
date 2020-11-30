@@ -12,7 +12,12 @@
 			"*.o": "c",
 			"__locale": "c",
 			"cstring": "c",
-			"locale": "c"
+			"locale": "c",
+			"cwchar": "c",
+			"string": "c",
+			"string_view": "c",
+			"utility": "c",
+			"BRUTE2.C": "cpp"
 		}
 	}
 }
