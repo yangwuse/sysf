@@ -11,10 +11,10 @@
         "-std=c++17",
         "-stdlib=libc++",
         // .c* build c or cpp (one file)
-        // "${fileDirname}/${fileBasenameNoExtension}.c*",
+        "${fileDirname}/${fileBasenameNoExtension}.c*",
         "-g",
         // build all .c files
-        "${fileDirname}/*.c",
+        // "${fileDirname}/*.c",
         "-o",
         "${fileDirname}/${fileBasenameNoExtension}",
         "--debug"
