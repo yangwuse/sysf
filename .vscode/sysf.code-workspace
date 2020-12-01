@@ -17,7 +17,12 @@
 			"string": "c",
 			"string_view": "c",
 			"utility": "c",
-			"BRUTE2.C": "cpp"
+			"BRUTE2.C": "cpp",
+			"LLAPP.C": "cpp",
+			"QAPP.C": "cpp",
+			"WORDLIST.C": "cpp",
+			"LLDRIVER.C": "cpp",
+			"LLGEN.C": "cpp"
 		}
 	}
 }

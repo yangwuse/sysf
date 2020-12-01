@@ -1,5 +1,5 @@
 ### 1. strcpy() 使用注意
-strcpy(char* des, char* src), des 指针必须指向一块足够大小的已分配内存，即需要先 malloc 给 des 合适的内存，在复制字符串
+strcpy(char* des, const char* src), des 指针必须指向一块足够大小的已分配内存，即需要先 malloc 给 des 合适的内存，在复制字符串
 
 ### 2. strdup(char* src) 使用注意
 strdup 首先调用 malloc 分配与 src 所指向的同样大小的内存，然后将 src 字符串复制到新的内存中，最后将新内存首地址返回，故 strdup 可直接使用
@@ -22,3 +22,5 @@ strdup 首先调用 malloc 分配与 src 所指向的同样大小的内存，然
 ### 8.  -> 和 . 使用
 
 
+### 9. 结构体 sizeof 大小对齐问题
+   

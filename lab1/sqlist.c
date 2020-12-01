@@ -45,6 +45,7 @@ void insertAtIndex(int index, char *id, char *name, char *age)
 {
   for (int i = LEN; i > index; i--)
     SqList[i] = SqList[i - 1];
+  // 这里直接赋值没问题
   SqList[index].m_id = id;
   SqList[index].m_name = name;
   SqList[index].m_age = age;
@@ -79,7 +80,7 @@ int main()
     id = strtok(line, ",");
     name = strtok(NULL, ",");
     age = strtok(NULL, ",");
-
+    // 使用 strdup 不需要手动 malloc 了
     SqList[i].m_id = strdup(id);
     SqList[i].m_name = strdup(name);
     SqList[i].m_age = strdup(age);

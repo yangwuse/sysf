@@ -10,12 +10,18 @@
       "args": [
         "-std=c++17",
         "-stdlib=libc++",
-        // .c* build c or cpp
-        "${fileDirname}/${fileBasenameNoExtension}.c*",
+        // .c* build c or cpp (one file)
+        // "${fileDirname}/${fileBasenameNoExtension}.c*",
+        "-g",
+        // build all .c files
+        "${fileDirname}/*.c",
         "-o",
         "${fileDirname}/${fileBasenameNoExtension}",
         "--debug"
       ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
       "group": {
         "kind": "build",
         "isDefault": true

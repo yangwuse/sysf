@@ -64,7 +64,7 @@ void insertNode(Link L, int pos, char *id, char *name, char *age)
   while (--pos) pre = pre->next;
   Link node = (Link) malloc(sizeof(LNode));
   
-
+  // 使用 strdup 不需要手动 malloc 了
   node->id = strdup(id); 
   node->name = strdup(name);
   node->age = strdup(age);
@@ -103,7 +103,7 @@ int main()
     node = (Link)malloc(sizeof(LNode));
     if (node != NULL)
     {
-      // 坑, 直接赋值有 bug (结构体指针成员使用前必须分配内存)
+      // 使用 strdup 不需要手动 malloc 了
       node->id = strdup(id);
       node->name = strdup(name);
       node->age = strdup(age);
