@@ -8,6 +8,12 @@
 		},
 		{
 			"path": "../../csapp"
+		},
+		{
+			"path": "../../tcpip"
+		},
+		{
+			"path": "../../netProgram"
 		}
 	],
 	"settings": {
@@ -25,7 +31,8 @@
 			"QAPP.C": "cpp",
 			"WORDLIST.C": "cpp",
 			"LLDRIVER.C": "cpp",
-			"LLGEN.C": "cpp"
+			"LLGEN.C": "cpp",
+			"BINTREE.C": "cpp"
 		}
 	}
 }
