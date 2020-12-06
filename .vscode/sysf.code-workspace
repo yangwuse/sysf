@@ -32,7 +32,9 @@
 			"WORDLIST.C": "cpp",
 			"LLDRIVER.C": "cpp",
 			"LLGEN.C": "cpp",
-			"BINTREE.C": "cpp"
+			"BINTREE.C": "cpp",
+			"HASHPJW.C": "cpp",
+			"ELFHASH.C": "cpp"
 		}
 	}
 }
