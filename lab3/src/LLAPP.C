@@ -61,15 +61,21 @@ int DeleteData1 ( void * data )
 
 int DuplicatedNode1 ( Link new_node, Link list_node )
 {            /* adding an occurrence to an existing word */
-
+    pND1 pnd = (pND1)list_node->pdata;
+    pnd->u += 1;
     return ( 1 );
 }
 
 
 int NodeDataCmp1 ( void *first, void *second )
 {
-    return ( strcmp ( ((pND1) first)->word,
-                      ((pND1) second)->word ));
+    // 只比较电话号码, 单词的前 12 位
+    char s1[12], s2[12];
+    strncpy(s1, ((pND1) first)->word, 11);
+    strncpy(s2, ((pND1) second)->word, 11);
+    s1[11] = '\0';
+    s2[11] = '\0';
+    return ( strcmp (s1, s2));
 }
 
 /*=== Now the functions for the second linked list ===*/

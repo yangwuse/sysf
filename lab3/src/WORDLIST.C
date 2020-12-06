@@ -7,27 +7,27 @@
    /* uncomment the following line to print all words
     * with their associated hash value.
     */
-#define LIST_HASH  1
+// #define LIST_HASH  1
 /* #define LIST_HASH  1 */
 
    /* uncomment the following line to print the unique words
     * and a count of their frequency.
     */
-#define LIST_WORDS 1
+// #define LIST_WORDS 1
 /* #define LIST_WORDS 1 */
 
    /* comment out the following line if you do not want an
     * an analysis of the hashing function and hash table load.
     */
 
-#define LIST_TABLE_STATS 1
+// #define LIST_TABLE_STATS 1
 
    /* uncomment the following line if you want a listing
     * of all words > 10 letters. Such words are often typing
     * or scanning errors in the text or odd constructs.
     */
 
-#define LIST_LONG_WORDS 1
+// #define LIST_LONG_WORDS 1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,13 +37,13 @@
 #include "LLGEN.H"          /* Header for generic linked lists */
 #include "LLAPP.H"          /* Header for appl.'s linked lists */
 
-extern unsigned long ElfHash( char *);
+extern unsigned long ElfHash(const unsigned char *);
 // extern unsigned int HashPJW( char * );
 
 /*--- the hash table portion ---*/
 
 //#define TABLE_SIZE  1999    /* Number of slots; a prime number */
-#define TABLE_SIZE  7    /* Number of slots; a prime number */
+#define TABLE_SIZE  10    /* Number of slots; a prime number */
 
 Link   *Table;              /* Our table is an array of Links */
 
@@ -75,6 +75,7 @@ int CreateTable ( Link **t )
         for ( i = 0; i < TABLE_SIZE; i++, t++ )
             **t = NULL;
     }
+    
 
     return ( 1 );
 }
@@ -119,17 +120,17 @@ int main ( int argc, char *argv[] )
 
     FILE     *fin;            /* the input file             */
 
-    if ( argc < 2 )
-    {
-        fprintf ( stderr, "Error! Usage: wordlist filename\n" );
-        exit ( EXIT_FAILURE );
-    }
+    // if ( argc < 2 )
+    // {
+    //     fprintf ( stderr, "Error! Usage: wordlist filename\n" );
+    //     exit ( EXIT_FAILURE );
+    // }
 
-    if ( argc > 2 )
-        fprintf
-            ( stderr, "Warning: Usage: wordlist filename\n" );
+    // if ( argc > 2 )
+    //     fprintf
+    //         ( stderr, "Warning: Usage: wordlist filename\n" );
 
-    fin = fopen ( argv[1], "rt" );
+    fin = fopen ( "/Users/yangwu/VSCodeProjects/sysf/lab3/src/data.txt", "rt" );
     if ( fin == NULL )
     {
         fprintf ( stderr, "Could not find/open %s\n", argv[1] );
@@ -195,8 +196,8 @@ int main ( int argc, char *argv[] )
         pw = strupr ( word );
 
         /*--- get the hash value ---*/
-
-        hash_key = (unsigned int) ElfHash ( pw );
+        char phone[12]; // 以电话号码作为 key
+        hash_key = (unsigned int) ElfHash ( (const unsigned char *)strncpy(phone, pw, 11) );
 		//hash_key = (unsigned int) HashPJW ( pw );
         hash_key %= TABLE_SIZE;
 
@@ -205,7 +206,7 @@ int main ( int argc, char *argv[] )
 #endif
 
         /*--- insert into table ---*/
-
+        // 头插法
         L1->LHead = Table[hash_key];
 
         nd.word =  pw;              /* the string we're adding */
@@ -223,8 +224,8 @@ int main ( int argc, char *argv[] )
          * long word list for subsequent display.
          */
 
-        if ( strlen ( pw ) > 10 )
-            AddNodeAscend ( long_wd, &nd );
+        // if ( strlen ( pw ) > 10 )
+        //     AddNodeAscend ( long_wd, &nd );
 
         /* if a word is longer than 20 chars, it's likely to
          * be a typo or other error; so delete it. This pro-
@@ -233,16 +234,16 @@ int main ( int argc, char *argv[] )
          * processing.
          */
 
-        if ( strlen ( pw ) > 20 )
-        {
-            Link pl;
+        // if ( strlen ( pw ) > 20 )
+        // {
+        //     Link pl;
 
-            pl =  FindNodeAscend ( L1, &nd );
-            if ( pl == NULL )
-                printf ( "processing error!\n" );
-            else
-                DeleteNode ( L1, pl );
-        }
+        //     pl =  FindNodeAscend ( L1, &nd );
+        //     if ( pl == NULL )
+        //         printf ( "processing error!\n" );
+        //     else
+        //         DeleteNode ( L1, pl );
+        // }
     }
 
     /*--- now dump the table ---*/
@@ -302,7 +303,7 @@ int main ( int argc, char *argv[] )
 #ifdef LIST_TABLE_STATS
 
     chains = 0;
-    for ( i = 32; i > 0; i-- )
+    for ( i = 10; i > 0; i-- )
     {
         if ( chain_table[i] == 0 )
             continue;
@@ -334,6 +335,48 @@ int main ( int argc, char *argv[] )
     else
         printf ( "Error! No chains found.\n" );
 #endif
+
+    // 打印 table
+    for (int i = 0; i < TABLE_SIZE; i++)
+    {
+        Link p = Table[i];
+        printf("index: %d ", i);
+        while (p)
+        {
+            printf("%s   ", ((pND1) p->pdata)->word);
+            p = p->next;
+        }
+        printf("\n");
+    }
+     printf("=================\n");
+
+    while (1) 
+    {
+        char in[12];
+        scanf("%s", in);
+        hash_key = (unsigned int) ElfHash((const unsigned char *)in);
+        hash_key %= TABLE_SIZE;
+        Link p = Table[hash_key];
+        if (p == NULL || strlen(in) != 11)
+            printf("%s 电话号码不存在\n", in);
+        else 
+        {
+            char phone_num[12];
+            while (p) 
+            {
+                // 截取电话号码
+                strncpy(phone_num, ((pND1) p->pdata)->word, 11);
+                if (strcmp(in, phone_num) == 0)
+                {
+                    printf("%s\n", ((pND1) p->pdata)->word);
+                    break;
+                }
+                p = p->next;
+            }
+            if (p == NULL)
+                printf("%s 电话号码不存在\n", in);
+        }
+    }
 	system("pause");
     return ( EXIT_SUCCESS );
 }
