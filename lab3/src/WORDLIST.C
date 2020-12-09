@@ -212,6 +212,7 @@ int main ( int argc, char *argv[] )
         nd.word =  pw;              /* the string we're adding */
         nd.u    =  1;               /* adding one occurrence   */
 
+        // 升序添加节点
         add_status =  AddNodeAscend ( L1, &nd );
         if ( add_status == 0 )      /* an error occurred */
             printf ( "Warning! Error while allocating node.\n" );

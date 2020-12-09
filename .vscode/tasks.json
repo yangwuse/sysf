@@ -14,7 +14,7 @@
         "${fileDirname}/${fileBasenameNoExtension}.c*",
         "-g",
         // build all .c files (c or C)
-        "${fileDirname}/*.c",
+        "${fileDirname}/*.C",
         "-o",
         "${fileDirname}/${fileBasenameNoExtension}",
         "--debug"
