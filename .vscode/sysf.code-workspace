@@ -41,7 +41,9 @@
 			"cstdlib": "cpp",
 			"ctime": "cpp",
 			"sstream": "cpp",
-			"functional": "c"
+			"functional": "c",
+			"bpf.h": "c",
+			"thread": "cpp"
 		}
 	}
 }
