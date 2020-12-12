@@ -9,7 +9,7 @@
 
 #define IN_LL_LIB   1   /* in the library of primitives */
 
-#include "llgen.h"
+#include "LLGEN.H"
 
 /*--- Aliases to make the code more readable ---*/
 

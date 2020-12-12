@@ -8,9 +8,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "bintree.h"
-#include "llgen.h"
-#include "qapp.h"
+#include "BINTREE.H"
+#include "LLGEN.H"
+#include "QAPP.H"
 #define QMAX 100    /* maximum number of elements in a queue */ //yyw
 
 /* A safe malloc() */
@@ -34,7 +34,7 @@ Bnode *InitBintreeNode(size_t size)
 {
     Bnode *n;
 
-    n = tmalloc(size);
+    n = (Bnode *)tmalloc(size);
     n -> link[LEFT] = n -> link[RIGHT]  = NULL;
 
     return n;
@@ -48,7 +48,7 @@ Bintree *NewBintree (Bnode *dummy,
 {
     Bintree *t;
 
-    t = tmalloc(sizeof(Bintree));
+    t = (Bintree* )tmalloc(sizeof(Bintree));
     t -> DummyHead = dummy;
     t -> Compare = cf;
     t -> DuplicatesOk = dup_ok;
@@ -366,7 +366,7 @@ void xrWalk(Bnode *n, int level)
     }
 }
 
-int xWalkBintree(Bintree *t, char *name, char *mode)
+int xWalkBintree(Bintree *t, char *name, const char *mode)
 {
     if (t -> DummyHead -> link[RIGHT] == NULL) {
         fputs("Empty tree\n", stdout);
@@ -518,10 +518,10 @@ int dequeue ( struct List *lqueue, struct List *lfree,
 int LevelTraBintree(Bintree *t, DoFunc df)//yyw
 {
 	// to do...
-
+    
 }
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     char inbuf[BUFLEN], *s;
     Bintree *tree;
@@ -600,7 +600,7 @@ main(int argc, char **argv)
                 break;
 
             case 'q':
-                return;
+                return 0;
 
             case ';':
                 break;  /* comment */
@@ -610,5 +610,6 @@ main(int argc, char **argv)
                 break;
         }
     }
+    return 0;
 }
 #endif

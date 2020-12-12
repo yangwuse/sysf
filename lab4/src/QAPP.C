@@ -7,8 +7,8 @@
 #include <stdlib.h>         /* for free() */
 #include <string.h>         /* for strcmp() and strdup() */
 
-#include "llgen.h"
-#include "qapp.h"
+#include "LLGEN.H"
+#include "QAPP.H"
 
 /*=== linked-list functions for queue ===*/
 
@@ -80,6 +80,7 @@ void * CreateData2 ( void * data )
 
     if ( new_data->text == NULL )   /* error copying string */
     {
+
         free ( new_data );
         return ( NULL );
     }
@@ -115,8 +116,8 @@ int NodeDataCmp2 ( void *first, void *second )
 int DataCopy ( void * dest, void * src )
 {
     pND2 s,d;
-    s = src;
-    d = dest;
+    s = (pND2)src;
+    d = (pND2)dest;
 
     if ( dest == NULL || src == NULL )
         return ( 0 );
