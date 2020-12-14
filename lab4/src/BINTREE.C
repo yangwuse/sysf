@@ -544,6 +544,7 @@ int LevelTraBintree(Bintree *t, DoFunc df)//yyw
         lfree->LTail->next = p;
         p->prev = lfree->LTail;
         lfree->LTail = p;
+        
         lfree->LCount++;
     }
 
