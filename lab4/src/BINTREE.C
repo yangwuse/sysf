@@ -425,12 +425,20 @@ int enqueue ( struct List *lqueue, struct List *lfree,
     {
         fprintf ( stderr, "Exceeded maximum queue size\n" );
         return ( 0 );
-    }
+        // new_node = (Link) malloc(sizeof(struct Node));
+        // new_node->prev = NULL;
+        // new_node->next = NULL;
+        // new_node->pdata = (pND2) malloc(sizeof(struct NodeData2));
 
-    /* load the data into the head of the free list */
+        // lfree->LTail = new_node;
+        // lfree->LHead = new_node;
 
-    new_node = lfree->LHead;
+        // lfree->LCount = 1;
+    } else
+         /* load the data into the head of the free list */
+        new_node = lfree->LHead;
 	
+    // 复制指针域和数据域
     if ( DataCopy ( new_node->pdata, new_entry ) == 0 )
          return  ( 0 );
 	
@@ -439,7 +447,6 @@ int enqueue ( struct List *lqueue, struct List *lfree,
 
     if ( lqueue->LCount == 0 )
     {
-        
 
         new_node->prev = NULL;
         new_node->next = NULL;
@@ -455,6 +462,7 @@ int enqueue ( struct List *lqueue, struct List *lfree,
 	else
 
     {
+        // 将节点从空闲队列对头位置摘下来，插入到队列的队尾
 		new_node->prev = lqueue->LTail;
 		new_node->next = NULL;
 		new_node->prev->next = new_node;
@@ -492,7 +500,7 @@ int dequeue ( struct List *lqueue, struct List *lfree,
     }
 
     /* make a copy of the data being dequeued */
-	
+	// 复制到二叉树中
     if ( DataCopy ( our_data, lqueue->LHead->pdata ) == 0 )
         return ( 0 );
 
@@ -504,6 +512,7 @@ int dequeue ( struct List *lqueue, struct List *lfree,
 
     /* add the node to the free list */
 
+    // 队列队头元素出队，头插法插入空闲链表头部
     dequeued_link->prev = NULL;
     dequeued_link->next = lfree->LHead;
     lfree->LHead = dequeued_link;
@@ -518,7 +527,42 @@ int dequeue ( struct List *lqueue, struct List *lfree,
 int LevelTraBintree(Bintree *t, DoFunc df)//yyw
 {
 	// to do...
+    struct List * lqueue, * lfree;
+    lqueue = CreateLList(CreateData1, DeleteData1, DuplicatedNode1, NodeDataCmp1);
+    lfree  = CreateLList(CreateData2, DeleteData2, DuplicatedNode2, NodeDataCmp2);
     
+    Link p = (Link) malloc(sizeof(struct Node));
+    p->pdata = (pND2)malloc(sizeof(struct NodeData2));
+    lfree->LHead = lfree->LTail = p;
+    lfree->LCount++;
+
+    for (int i = 0; i < QMAX - 1; i++)
+    {
+        p = (Link)malloc(sizeof(struct Node));
+        p->pdata = (pND2)malloc(sizeof(struct NodeData2));
+        // ((pND2)p->pdata)->text = (char *)malloc(sizeof(10));
+        lfree->LTail->next = p;
+        p->prev = lfree->LTail;
+        lfree->LTail = p;
+        lfree->LCount++;
+    }
+
+    Bnode * root = t->DummyHead->link[RIGHT];
+    if (root == NULL)
+        return 0;
+    
+    int level = 0;
+    enqueue(lqueue, lfree, root);
+    while (lqueue->LCount != 0)
+    {
+        dequeue(lqueue, lfree, root);
+        df(root, level++);   
+        if (root->link[LEFT])
+            enqueue(lqueue, lfree, root->link[LEFT]);
+            
+        if (root->link[RIGHT])
+            enqueue(lqueue, lfree, root->link[RIGHT]);
+    }
 }
 
 int main(int argc, char **argv)
