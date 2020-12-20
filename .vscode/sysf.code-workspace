@@ -43,7 +43,8 @@
 			"sstream": "cpp",
 			"functional": "c",
 			"bpf.h": "c",
-			"thread": "cpp"
+			"thread": "cpp",
+			"STACKS.C": "cpp"
 		}
 	}
 }

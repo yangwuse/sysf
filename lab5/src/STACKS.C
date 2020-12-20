@@ -7,8 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include "stacks.h"
-#include "stacks.h"
+#include "STACKS.H"
 /*---------------------------------------------------------------
  *  clear the stack by pointing the top of the stack
  *  at an invalid item; that is, the stack is empty.

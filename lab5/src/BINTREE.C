@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "bintree.h"
-#include "stacks.h"
+#include "BINTREE.H"
+#include "STACKS.H"
 
 
 
@@ -366,7 +366,7 @@ void xrWalk(Bnode *n, int level)
     }
 }
 
-int xWalkBintree(Bintree *t, char *name, char *mode)
+int xWalkBintree(Bintree *t, char *name, const char *mode)
 {
     if (t -> DummyHead -> link[RIGHT] == NULL) {
         fputs("Empty tree\n", stdout);
