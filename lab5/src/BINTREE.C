@@ -34,7 +34,7 @@ Bnode *InitBintreeNode(size_t size)
 {
     Bnode *n;
 
-    n = tmalloc(size);
+    n = (Bnode *)tmalloc(size);
     n -> link[LEFT] = n -> link[RIGHT]  = NULL;
 
     return n;
@@ -48,7 +48,7 @@ Bintree *NewBintree (Bnode *dummy,
 {
     Bintree *t;
 
-    t = tmalloc(sizeof(Bintree));
+    t = (Bintree *)tmalloc(sizeof(Bintree));
     t -> DummyHead = dummy;
     t -> Compare = cf;
     t -> DuplicatesOk = dup_ok;
@@ -412,11 +412,33 @@ int CompareFunc(void *n1, void *n2)
 
 int WalkBintreeByStack(Bintree *t, DoFunc df)//yyw
 {
-	// to do...
+	// initialize stack with 40 size 
+    Stack *stack_ptr = CreateStack(40);
+    // root node
+    Bnode * root = t->DummyHead->link[RIGHT];
+    // push root node
+    PushElement(stack_ptr, (struct StkElement *)root);
+    // while until top == -1
+    while (stack_ptr->top != -1)
+    {
+        while (root->link[LEFT])
+        {
+            PushElement(stack_ptr, (struct StkElement *)root->link[LEFT]);
+            root = root->link[LEFT];
+        }
+        // pop stack top elem
+        struct StkElement *pop_elem = (struct StkElement *) malloc(sizeof(struct StkElement));
+        PopElement(stack_ptr, pop_elem);
+        printf("%s\n", pop_elem->text);
+        if (pop_elem->link[RIGHT]) {
+            PushElement(stack_ptr, pop_elem->link[RIGHT]);
+            root = (Bnode*)pop_elem->link[RIGHT];
+        }
+    }
 	
 }
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
     char inbuf[BUFLEN], *s;
     Bintree *tree;
@@ -495,7 +517,7 @@ main(int argc, char **argv)
                 break;
 
             case 'q':
-                return;
+                return 0;
 
             case ';':
                 break;  /* comment */
