@@ -434,8 +434,7 @@ int WalkBintreeByStack(Bintree *t, DoFunc df)//yyw
             PushElement(stack_ptr, pop_elem->link[RIGHT]);
             root = (Bnode*)pop_elem->link[RIGHT];
         }
-    }
-	
+    }	
 }
 
 int main(int argc, char **argv)
